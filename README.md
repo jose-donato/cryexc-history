@@ -24,15 +24,31 @@ All three stages live in the same Go binary, share the same DuckDB handle, and s
 
 ### Option 1: prebuilt binary (recommended)
 
-Replace `<VERSION>` with the latest tag from the [Releases](https://github.com/jose-donato/cryexc-history/releases) page:
+Download the asset for your platform from the [v0.1.0 release](https://github.com/jose-donato/cryexc-history/releases/tag/v0.1.0):
+
+| Platform | Asset |
+|----------|-------|
+| Linux x86_64 | `cryexc-history-linux-amd64` |
+| Linux arm64 | `cryexc-history-linux-arm64` |
+| macOS Intel | `cryexc-history-darwin-amd64` |
+| macOS Apple Silicon | `cryexc-history-darwin-arm64` |
+| Windows x86_64 | `cryexc-history-windows-amd64.exe` |
+
+Linux / macOS example:
 
 ```bash
-curl -LO https://github.com/jose-donato/cryexc-history/releases/download/<VERSION>/cryexc-history-linux-amd64
+curl -LO https://github.com/jose-donato/cryexc-history/releases/download/v0.1.0/cryexc-history-linux-amd64
 chmod +x cryexc-history-linux-amd64
 mv cryexc-history-linux-amd64 /usr/local/bin/cryexc-history   # optional — or run from cwd
 ```
 
-Currently only `linux/amd64` is published. Open an issue if you need macOS / Windows / arm64 builds.
+Binaries are **not code-signed**. On macOS the first run will be blocked by Gatekeeper — strip the quarantine attribute once and you're done:
+
+```bash
+xattr -d com.apple.quarantine cryexc-history-darwin-arm64
+```
+
+On Windows, SmartScreen may warn on first run; click **More info → Run anyway**.
 
 ### Option 2: build from source
 
