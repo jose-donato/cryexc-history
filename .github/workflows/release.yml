@@ -20,14 +20,24 @@ jobs:
         include:
           - os: ubuntu-latest
             name: linux-amd64
+            goos: linux
+            goarch: amd64
           - os: ubuntu-24.04-arm
             name: linux-arm64
-          - os: macos-13
+            goos: linux
+            goarch: arm64
+          - os: macos-latest
             name: darwin-amd64
+            goos: darwin
+            goarch: amd64
           - os: macos-latest
             name: darwin-arm64
+            goos: darwin
+            goarch: arm64
           - os: windows-latest
             name: windows-amd64
+            goos: windows
+            goarch: amd64
     runs-on: ${{ matrix.os }}
     steps:
       - uses: actions/checkout@v4
@@ -39,10 +49,14 @@ jobs:
 
       - name: Build binary
         shell: bash
+        env:
+          GOOS: ${{ matrix.goos }}
+          GOARCH: ${{ matrix.goarch }}
+          CGO_ENABLED: '1'
         run: |
           EXT=""
           if [ "${{ runner.os }}" = "Windows" ]; then EXT=".exe"; fi
-          CGO_ENABLED=1 go build -trimpath -ldflags="-s -w" \
+          go build -trimpath -ldflags="-s -w" \
             -o "cryexc-history-${{ matrix.name }}${EXT}" ./cmd/server
           ls -lh "cryexc-history-${{ matrix.name }}${EXT}"
 
