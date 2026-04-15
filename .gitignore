@@ -1,0 +1,6 @@
+cryexc-history
+*.duckdb
+*.duckdb.wal
+*.duckdb.tmp
+/tmp/
+.DS_Store
