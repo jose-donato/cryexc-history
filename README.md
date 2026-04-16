@@ -114,7 +114,7 @@ Then in the Cryexc frontend:
 | GET | `/v1/trades` | Yes | `?exchange=&symbol=&start_ms=&end_ms=&limit=` — trades in range. |
 | GET | `/v1/liquidations` | Yes | Same params as trades. |
 
-All `/v1/*` endpoints require `Authorization: Bearer <token>` when `--auth-token` is set. Full protocol details live in [byod-spec.md](https://github.com/jose-donato/cryexc-extension2/blob/main/docs/byod-spec.md).
+All `/v1/*` endpoints require `Authorization: Bearer <token>` when `--auth-token` is set. Full protocol details live in [history-spec.md](https://cryexc.josedonato.com/history-spec.md).
 
 ## Example requests
 
