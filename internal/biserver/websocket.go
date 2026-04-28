@@ -36,7 +36,7 @@ func NewServer(s *store.Store, authToken string, catalog Catalog) *Server {
 // ServerName is advertised in /v1/info for client diagnostics. Deliberately
 // distinct from the hosted backend identifier so frontends can tell at a
 // glance which flavor they're talking to.
-const ServerName = "cryexc-history/0.1.0"
+const ServerName = "cryexc-history/0.1.1"
 
 // CORS is deliberately permissive by default — the threat model here is a
 // single user running a binary on their own box, talking to a frontend at

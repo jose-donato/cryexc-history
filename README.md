@@ -24,7 +24,7 @@ All three stages live in the same Go binary, share the same DuckDB handle, and s
 
 ### Option 1: prebuilt binary (recommended)
 
-Download the asset for your platform from the [v0.1.0 release](https://github.com/jose-donato/cryexc-history/releases/tag/v0.1.0):
+Download the asset for your platform from the [v0.1.1 release](https://github.com/jose-donato/cryexc-history/releases/tag/v0.1.1):
 
 | Platform | Asset |
 |----------|-------|
@@ -34,10 +34,10 @@ Download the asset for your platform from the [v0.1.0 release](https://github.co
 | macOS Apple Silicon | `cryexc-history-darwin-arm64` |
 | Windows x86_64 | `cryexc-history-windows-amd64.exe` |
 
-Linux / macOS example:
+Linux:
 
 ```bash
-curl -LO https://github.com/jose-donato/cryexc-history/releases/download/v0.1.0/cryexc-history-linux-amd64
+curl -LO https://github.com/jose-donato/cryexc-history/releases/download/v0.1.1/cryexc-history-linux-amd64
 chmod +x cryexc-history-linux-amd64
 mv cryexc-history-linux-amd64 /usr/local/bin/cryexc-history   # optional — or run from cwd
 ```
@@ -136,7 +136,7 @@ curl http://127.0.0.1:8080/v1/info | jq
 ```json
 {
   "protocol_version": 1,
-  "server": "cryexc-history/0.1.0",
+  "server": "cryexc-history/0.1.1",
   "server_time_ms": 1744723200123,
   "exchanges": [
     {
