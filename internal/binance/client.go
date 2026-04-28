@@ -67,6 +67,13 @@ func NewClient(s *store.Store, cfg Config) (*Client, error) {
 // buildWSURL composes the Binance combined-stream URL for the configured
 // exchange + symbol. Only binancef is wired up for Phase 4. Adding spot is
 // mechanically trivial — add another case when a user actually asks.
+//
+// Binance USDM Futures WS moved to a segmented architecture (effective
+// 2026-04-23): the legacy /stream and /ws paths on fstream.binance.com are
+// retired. High-frequency per-symbol streams (@trade, @depth*, per-symbol
+// @forceOrder) live under /public/; aggregated streams (@aggTrade,
+// @markPrice, !forceOrder@arr) live under /market/. Announcement:
+// https://www.binance.com/en/support/announcement/detail/ebf9b0aa9eca4ff3804eef6fb09ba32a
 func buildWSURL(cfg Config) (string, error) {
 	if cfg.Symbol == "" {
 		return "", fmt.Errorf("binance: symbol is required")
@@ -74,7 +81,7 @@ func buildWSURL(cfg Config) (string, error) {
 	sym := strings.ToLower(cfg.Symbol)
 	switch cfg.Exchange {
 	case "binancef":
-		return fmt.Sprintf("wss://fstream.binance.com/stream?streams=%s@trade/%s@depth20@100ms", sym, sym), nil
+		return fmt.Sprintf("wss://fstream.binance.com/public/stream?streams=%s@trade/%s@depth20@100ms", sym, sym), nil
 	default:
 		return "", fmt.Errorf("binance: unsupported exchange %q (supported: binancef)", cfg.Exchange)
 	}

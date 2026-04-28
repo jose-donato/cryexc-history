@@ -58,6 +58,9 @@ func NewClient(cfg Config) (*Client, error) {
 	return &Client{cfg: cfg, wsURL: url}, nil
 }
 
+// Binance USDM Futures WS moved to segmented paths on 2026-04-23: per-symbol
+// @forceOrder belongs under /public/ (the all-market !forceOrder@arr stream
+// would live under /market/ instead). Legacy /ws path is retired.
 func buildWSURL(cfg Config) (string, error) {
 	if cfg.Symbol == "" {
 		return "", fmt.Errorf("binanceliq: symbol is required")
@@ -65,7 +68,7 @@ func buildWSURL(cfg Config) (string, error) {
 	sym := strings.ToLower(cfg.Symbol)
 	switch cfg.Exchange {
 	case "binancef":
-		return fmt.Sprintf("wss://fstream.binance.com/ws/%s@forceOrder", sym), nil
+		return fmt.Sprintf("wss://fstream.binance.com/public/ws/%s@forceOrder", sym), nil
 	default:
 		return "", fmt.Errorf("binanceliq: unsupported exchange %q", cfg.Exchange)
 	}
